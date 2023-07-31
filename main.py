@@ -55,7 +55,7 @@ async def telegram_send_msg(message):
     ivan = 415205954
     group = -923095861
     async with bot:
-        await bot.send_message(text=str(message), chat_id=ivan)
+        await bot.send_message(text=str(message), chat_id=group)
 
 
 async def bot_updates():
