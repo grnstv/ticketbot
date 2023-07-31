@@ -51,8 +51,10 @@ def ask_for_tickets():
 
 async def telegram_send_msg(message):
     bot = telegram.Bot("6411070462:AAEqo0pv54mnXTBfId5ClBD6YOHY5iQrhgA")
+    ivan = 415205954
+    group = -923095861
     async with bot:
-        await bot.send_message(text=str(message), chat_id=415205954)
+        await bot.send_message(text=str(message), chat_id=group)
 
 
 async def bot_updates():
@@ -64,6 +66,7 @@ async def bot_updates():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+
     attempts = 0
     succeed = 0
     last_report = 0
