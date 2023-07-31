@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "ticketbot"
+version = "0.1.0"
+description = ""
+authors = ["gornostaev <igornostaev@infoss.no>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+python-telegram-bot = "^20.4"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
