@@ -45,6 +45,8 @@ def ask_for_tickets():
         asyncio.run(
             telegram_send_msg(result)
         )
+        return 1
+    return 0
 
 
 async def telegram_send_msg(message):
@@ -62,8 +64,18 @@ async def bot_updates():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    attempts = 0
+    succeed = 0
+    last_report = 0
     while True:
-        ask_for_tickets()
+
+        succeed += ask_for_tickets()
+        attempts += 1
+        if last_report == attempts // 10:
+            asyncio.run(
+                telegram_send_msg(f'Asked for tickets {attempts} times, succeded {succeed}')
+            )
+            last_report += 10
         time.sleep(180)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
