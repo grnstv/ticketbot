@@ -40,8 +40,6 @@ def ask_for_tickets():
     result = ''
     if no_tickets_string not in response.text:
         result = 'Mestia-Natakhari tickets found! Go to https://ticket.vanillasky.ge/en/tickets'
-    else:
-        result = 'No tickets'
 
     if result:
         asyncio.run(
