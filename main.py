@@ -9,7 +9,7 @@ import requests
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
 
-def ask_for_tickets():
+def ask_for_tickets(success_count):
     url = "https://ticket.vanillasky.ge/en/tickets"
     date = "08%2F01%2F2023"
     person_count = "1"
@@ -42,9 +42,10 @@ def ask_for_tickets():
         result = 'Mestia-Natakhari tickets found! Go to https://ticket.vanillasky.ge/en/tickets'
 
     if result:
-        asyncio.run(
-            telegram_send_msg(result)
-        )
+        if success_count < 5:
+            asyncio.run(
+                telegram_send_msg(result)
+            )
         return 1
     return 0
 
@@ -54,7 +55,7 @@ async def telegram_send_msg(message):
     ivan = 415205954
     group = -923095861
     async with bot:
-        await bot.send_message(text=str(message), chat_id=group)
+        await bot.send_message(text=str(message), chat_id=ivan)
 
 
 async def bot_updates():
@@ -72,13 +73,13 @@ if __name__ == '__main__':
     last_report = 0
     while True:
 
-        succeed += ask_for_tickets()
+        succeed += ask_for_tickets(succeed)
         attempts += 1
-        if last_report == attempts // 10:
+        if last_report == attempts // 20:
             asyncio.run(
                 telegram_send_msg(f'Asked for tickets {attempts} times, succeded {succeed}')
             )
-            last_report += 10
+            last_report += 1
         time.sleep(180)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
