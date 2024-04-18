@@ -9,9 +9,9 @@ import requests
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
 
-def ask_for_tickets(success_count):
+def ask_for_tickets(bot, success_count):
     url = "https://ticket.vanillasky.ge/en/tickets"
-    date = "08%2F01%2F2023"
+    date = os.environ["DATA"]
     person_count = "1"
     payload = f'types=0&departure=6&date_picker={date}&arrive=7&date_picker_arrive={date}&person_count={person_count}&person_types%5Badult%5D={person_count}&person_types%5Bchild%5D=0&person_types%5Binfant%5D=0&op=&form_build_id=form-K6gjO3mMnfAOnbkoH4E8UckLTUCVMnFflaqe3etKYfQ&form_id=form_select_date'
     headers = {
@@ -44,36 +44,28 @@ def ask_for_tickets(success_count):
     if result:
         if success_count < 5:
             asyncio.run(
-                telegram_send_msg(result)
+                telegram_send_msg(bot, result)
             )
         return 1
     return 0
 
 
-async def telegram_send_msg(message):
-    bot = telegram.Bot("6411070462:AAEqo0pv54mnXTBfId5ClBD6YOHY5iQrhgA")
-    ivan = 415205954
-    group = -923095861
+async def telegram_send_msg(bot, message):
     async with bot:
         await bot.send_message(text=str(message), chat_id=group)
 
 
-async def bot_updates():
-    bot = telegram.Bot("6411070462:AAEqo0pv54mnXTBfId5ClBD6YOHY5iQrhgA")
-    async with bot:
-        print(
-            await bot.get_updates()
-        )
-
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-
+    bot = telegram.Bot(os.environ["BOT_ID"])
+    ivan = os.environ["IVAN_ID"]
+    group = os.environ["GROUP_ID"]
     attempts = 0
     succeed = 0
     last_report = 0
     while True:
 
-        succeed += ask_for_tickets(succeed)
+        succeed += ask_for_tickets(bot, succeed)
         attempts += 1
         if last_report == attempts // 20:
             asyncio.run(
