@@ -1,3 +1,4 @@
+""" Telegram bot with scrapler """
 import asyncio
 import time
 
@@ -10,6 +11,9 @@ import requests
 
 
 def ask_for_tickets(success_count):
+    """
+        Scrapler for VanillaSky air tickets
+    """
     url = "https://ticket.vanillasky.ge/en/tickets"
     date = "08%2F01%2F2023"
     person_count = "1"
@@ -51,6 +55,7 @@ def ask_for_tickets(success_count):
 
 
 async def telegram_send_msg(message):
+    " Telegram bot message sender"
     bot = telegram.Bot("6411070462:AAEqo0pv54mnXTBfId5ClBD6YOHY5iQrhgA")
     ivan = 415205954
     group = -923095861
@@ -59,6 +64,7 @@ async def telegram_send_msg(message):
 
 
 async def bot_updates():
+    " Telegram bot get updates"
     bot = telegram.Bot("6411070462:AAEqo0pv54mnXTBfId5ClBD6YOHY5iQrhgA")
     async with bot:
         print(
@@ -81,6 +87,3 @@ if __name__ == '__main__':
             )
             last_report += 1
         time.sleep(180)
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
-
